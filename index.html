@@ -523,6 +523,61 @@
 </section>
 
 
+<section class="slide content-slide page17results">
+  <div class="content-header">
+    <h2 class="slide-title">Ten-Fold Cross-Validation Results</h2>
+    <div class="chapter-label">Work 1 Validation</div>
+  </div>
+  <div class="accent-bar"></div>
+  <div class="page17results-main">
+    <div class="page17results-table-block">
+      <div class="page17results-table-title">Balanced three-phase currents</div>
+      <table class="page17results-table">
+        <thead><tr><th>Method</th><th>Training time</th><th>Training accuracy</th><th>Inference latency</th><th>Test accuracy</th><th>Multi-switch OC diagnosis</th></tr></thead>
+        <tbody>
+          <tr class="proposed"><td>Proposed method</td><td>207 s</td><td>100%</td><td>0.001234 s</td><td>100%</td><td>Yes</td></tr>
+          <tr><td>Mean current vector + threshold</td><td>N/A</td><td>N/A</td><td>N/A</td><td>100%</td><td class="warning">No</td></tr>
+          <tr><td>Current vector residual coding</td><td>N/A</td><td>N/A</td><td>0.0000025 s</td><td>99.25%</td><td>Yes</td></tr>
+          <tr><td>FFT + PCA + BN</td><td>0.0846 s</td><td>100%</td><td>0.006629 s</td><td>99.92%</td><td>Yes</td></tr>
+          <tr><td>FFT + ReliefF + RVFL</td><td>0.0163 s</td><td>99.12%</td><td>0.0006 s</td><td>95.45%</td><td>Yes</td></tr>
+          <tr><td>FFT + ReliefF + ELM</td><td>0.0141 s</td><td>100%</td><td>0.000084 s</td><td>97.76%</td><td>Yes</td></tr>
+          <tr><td>FFT + ReliefF + SVM</td><td>0.2899 s</td><td>100%</td><td>0.013780 s</td><td>96.16%</td><td>Yes</td></tr>
+          <tr><td>FFT + ReliefF + kNN</td><td>0.0454 s</td><td>100%</td><td>0.000294 s</td><td>99.27%</td><td>Yes</td></tr>
+          <tr><td>FFT + ReliefF + RF</td><td>0.2148 s</td><td>100%</td><td>0.052875 s</td><td>95.08%</td><td>Yes</td></tr>
+          <tr><td>GFPN + KAN</td><td>48.28 s</td><td>100%</td><td>0.00097 s</td><td>99.25%</td><td>Yes</td></tr>
+          <tr><td>FFT + QCS + TCN</td><td>1.44 s</td><td>100%</td><td>0.0011 s</td><td>98.48%</td><td>Yes</td></tr>
+          <tr><td>AFEM + A-MICNN</td><td>34.73 s</td><td>100%</td><td>0.0014 s</td><td>99.74%</td><td>Yes</td></tr>
+          <tr><td>TL + RVFL</td><td>0.0147 s</td><td>100%</td><td>0.00027 s</td><td>98.89%</td><td>Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="page17results-table-block">
+      <div class="page17results-table-title">Extremely unbalanced three-phase currents: 88% PCUR</div>
+      <table class="page17results-table">
+        <thead><tr><th>Method</th><th>Training time</th><th>Training accuracy</th><th>Inference latency</th><th>Test accuracy</th><th>Unbalanced loading diagnosis</th></tr></thead>
+        <tbody>
+          <tr class="proposed"><td>Proposed method</td><td>159 s</td><td>100%</td><td>0.001022 s</td><td>100%</td><td>Yes</td></tr>
+          <tr><td>Mean current vector + threshold</td><td>N/A</td><td>N/A</td><td>N/A</td><td>99.83%</td><td class="warning">Accuracy drop</td></tr>
+          <tr><td>Current vector residual coding</td><td>N/A</td><td>N/A</td><td>0.0000068 s</td><td>N/A</td><td class="warning">No</td></tr>
+          <tr><td>FFT + PCA + BN</td><td>0.5299 s</td><td>98.65%</td><td>0.0068 s</td><td>98.50%</td><td class="warning">Accuracy drop</td></tr>
+          <tr><td>FFT + ReliefF + RVFL</td><td>0.0168 s</td><td>91.29%</td><td>0.0003 s</td><td>90.00%</td><td class="warning">Accuracy drop</td></tr>
+          <tr><td>FFT + ReliefF + ELM</td><td>0.0121 s</td><td>97.68%</td><td>0.0007 s</td><td>96.78%</td><td class="warning">Accuracy drop</td></tr>
+          <tr><td>FFT + ReliefF + SVM</td><td>0.413 s</td><td>94.32%</td><td>0.0433 s</td><td>93.42%</td><td class="warning">Accuracy drop</td></tr>
+          <tr><td>FFT + ReliefF + kNN</td><td>0.0573 s</td><td>100%</td><td>0.0218 s</td><td>93.77%</td><td class="warning">Accuracy drop</td></tr>
+          <tr><td>FFT + ReliefF + RF</td><td>0.198 s</td><td>100%</td><td>0.0474 s</td><td>89.03%</td><td class="warning">Accuracy drop</td></tr>
+          <tr><td>GFPN + KAN</td><td>49.61 s</td><td>100%</td><td>0.001 s</td><td>95.20%</td><td class="warning">Accuracy drop</td></tr>
+          <tr><td>FFT + QCS + TCN</td><td>1.15 s</td><td>100%</td><td>0.0013 s</td><td>93.18%</td><td class="warning">Accuracy drop</td></tr>
+          <tr><td>AFEM + A-MICNN</td><td>38.73 s</td><td>100%</td><td>0.0012 s</td><td>99.12%</td><td class="warning">Accuracy drop</td></tr>
+          <tr><td>TL + RVFL</td><td>0.0175 s</td><td>98.73%</td><td>0.00021 s</td><td>97.89%</td><td class="warning">Accuracy drop</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="page17results-takeaway"><strong>Takeaway:</strong> The proposed method maintains 100% accuracy across all 22 operational modes without accuracy degradation under 88% PCUR.</div>
+  </div>
+  <div class="page-num">17</div>
+</section>
+
+
 <section class="slide content-slide page16v2">
   <div class="content-header">
     <h2 class="slide-title">Energy Bottleneck in CNN Implementation</h2>
@@ -557,7 +612,7 @@
       </div>
     </div>
   </div>
-  <div class="page-num">17</div>
+  <div class="page-num">18</div>
 </section>
 
 
@@ -588,7 +643,7 @@
       <div class="page17v1-note">This motivates event-driven and spike-based computation in Work 2: compute only where trajectory information exists.</div>
     </div>
   </div>
-  <div class="page-num">18</div>
+  <div class="page-num">19</div>
 </section>
 
 
