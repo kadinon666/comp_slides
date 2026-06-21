@@ -694,8 +694,8 @@ h1 { margin:0; color:var(--psu-navy); font-weight:820; letter-spacing:-.04em; li
 
 
 /* Pages 14-20 restored layouts */
-.page14v3 .content-header, .page15v1 .content-header, .page16setup .content-header, .page17results .content-header, .page18balanced .content-header, .page16v2 .content-header, .page17v1 .content-header { position:absolute; left:7.6%; right:7.6%; top:5.2%; }
-.page14v3 .accent-bar, .page15v1 .accent-bar, .page16setup .accent-bar, .page17results .accent-bar, .page18balanced .accent-bar, .page16v2 .accent-bar, .page17v1 .accent-bar { position:absolute; left:7.6%; right:7.6%; top:15.0%; }
+.page14v3 .content-header, .page15v1 .content-header, .page16setup .content-header, .page17results .content-header, .page18balanced .content-header, .page19unbalanced .content-header, .page16v2 .content-header, .page17v1 .content-header { position:absolute; left:7.6%; right:7.6%; top:5.2%; }
+.page14v3 .accent-bar, .page15v1 .accent-bar, .page16setup .accent-bar, .page17results .accent-bar, .page18balanced .accent-bar, .page19unbalanced .accent-bar, .page16v2 .accent-bar, .page17v1 .accent-bar { position:absolute; left:7.6%; right:7.6%; top:15.0%; }
 
 /* Page 14 */
 .page14v3-main { position:absolute; left:7.6%; right:7.6%; top:18.4%; bottom:9.0%; display:grid; grid-template-columns:1.02fr .98fr; gap:1.4rem; align-items:stretch; }
@@ -837,6 +837,7 @@ h1 { margin:0; color:var(--psu-navy); font-weight:820; letter-spacing:-.04em; li
 }
 .page18balanced-takeaway strong { color:var(--psu-navy); }
 .page18balanced .page-num { bottom:3.7%; }
+.page19unbalanced .page-num { bottom:3.7%; }
 
 /* Page 16 */
 .page16v2-main { position:absolute; left:7.6%; right:7.6%; top:18.2%; bottom:9.0%; display:grid; grid-template-rows:.95fr 1.05fr; gap:1rem; }
