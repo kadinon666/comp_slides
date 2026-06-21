@@ -693,9 +693,9 @@ h1 { margin:0; color:var(--psu-navy); font-weight:820; letter-spacing:-.04em; li
 .page13v1 .page-num { bottom:3.7%; }
 
 
-/* Pages 14-17 restored layouts */
-.page14v3 .content-header, .page15v1 .content-header, .page16v2 .content-header, .page17v1 .content-header { position:absolute; left:7.6%; right:7.6%; top:5.2%; }
-.page14v3 .accent-bar, .page15v1 .accent-bar, .page16v2 .accent-bar, .page17v1 .accent-bar { position:absolute; left:7.6%; right:7.6%; top:15.0%; }
+/* Pages 14-18 restored layouts */
+.page14v3 .content-header, .page15v1 .content-header, .page16setup .content-header, .page16v2 .content-header, .page17v1 .content-header { position:absolute; left:7.6%; right:7.6%; top:5.2%; }
+.page14v3 .accent-bar, .page15v1 .accent-bar, .page16setup .accent-bar, .page16v2 .accent-bar, .page17v1 .accent-bar { position:absolute; left:7.6%; right:7.6%; top:15.0%; }
 
 /* Page 14 */
 .page14v3-main { position:absolute; left:7.6%; right:7.6%; top:18.4%; bottom:9.0%; display:grid; grid-template-columns:1.02fr .98fr; gap:1.4rem; align-items:stretch; }
@@ -729,6 +729,43 @@ h1 { margin:0; color:var(--psu-navy); font-weight:820; letter-spacing:-.04em; li
 .page15v1-box { border:1px solid #D7EAF6; border-radius:13px; background:#F2FAFE; padding:.68rem .72rem; color:var(--ink); font-size:clamp(12px,.84vw,15px); line-height:1.28; }
 .page15v1-box strong { color:var(--psu-navy); }
 .page15v1 .page-num { bottom:3.7%; }
+
+/* Page 16: experimental platform and data flow */
+.page16setup-main {
+  position:absolute; left:7.6%; right:7.6%; top:18.4%; bottom:9.0%;
+  display:grid; grid-template-rows:minmax(0,1fr) auto; gap:.9rem;
+}
+.page16setup-visuals {
+  display:grid; grid-template-columns:.92fr 1.08fr; gap:1rem; min-height:0;
+}
+.page16setup-card {
+  border:1px solid var(--line); border-radius:18px; background:#fff;
+  box-shadow:0 12px 28px rgba(27,58,114,.08); padding:.72rem .82rem .62rem;
+  display:flex; flex-direction:column; min-height:0;
+}
+.page16setup-card-title {
+  color:var(--psu-navy); font-weight:820; font-size:clamp(14px,.94vw,18px); margin-bottom:.4rem;
+}
+.page16setup-frame {
+  flex:1; min-height:0; background:#F8FAFC; border:1px solid #E6ECF2;
+  border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center;
+}
+.page16setup-frame img { width:100%; height:100%; object-fit:contain; display:block; }
+.page16setup-caption {
+  margin-top:.38rem; color:var(--muted); font-size:clamp(10px,.72vw,13px); line-height:1.22;
+}
+.page16setup-metrics { display:grid; grid-template-columns:1.18fr .72fr .72fr 1.38fr; gap:.72rem; }
+.page16setup-metric {
+  border:1px solid #D7EAF6; border-radius:13px; background:#F2FAFE;
+  padding:.62rem .72rem; min-height:4.7rem; display:flex; flex-direction:column; justify-content:center;
+}
+.page16setup-metric span {
+  color:var(--muted); font-size:clamp(10px,.7vw,13px); font-weight:800;
+  text-transform:uppercase; letter-spacing:.06em; margin-bottom:.28rem;
+}
+.page16setup-metric strong { color:var(--psu-navy); font-size:clamp(13px,.9vw,16px); line-height:1.2; }
+.page16setup-metric.load strong { font-size:clamp(11px,.78vw,14px); }
+.page16setup .page-num { bottom:3.7%; }
 
 /* Page 16 */
 .page16v2-main { position:absolute; left:7.6%; right:7.6%; top:18.2%; bottom:9.0%; display:grid; grid-template-rows:.95fr 1.05fr; gap:1rem; }

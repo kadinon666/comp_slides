@@ -489,6 +489,40 @@
 </section>
 
 
+<section class="slide content-slide page16setup">
+  <div class="content-header">
+    <h2 class="slide-title">Experimental Platform and Real-Time CNN Data Flow</h2>
+    <div class="chapter-label">Work 1 Validation</div>
+  </div>
+  <div class="accent-bar"></div>
+  <div class="page16setup-main">
+    <div class="page16setup-visuals">
+      <div class="page16setup-card">
+        <div class="page16setup-card-title">Two-level three-phase inverter test bench</div>
+        <div class="page16setup-frame bench">
+          <img src="assets/work1-test-bench.png" alt="Laboratory test bench with the DC source, VSI, DSP, host PC, and balanced and unbalanced RL loads." />
+        </div>
+        <div class="page16setup-caption">TI F28379D LaunchPad and BOOSTXL-3PHGANINV inverter board with configurable balanced and unbalanced RL loads.</div>
+      </div>
+      <div class="page16setup-card">
+        <div class="page16setup-card-title">Real-time measurement and diagnosis path</div>
+        <div class="page16setup-frame flow">
+          <img src="assets/work1-cnn-data-flow.png" alt="Real-time data flow from the inverter current sensors and ADC through USB to trajectory-matrix generation and CNN diagnosis on the host PC." />
+        </div>
+        <div class="page16setup-caption">Current sensors → ADC → USB → trajectory-matrix generation → CNN inference. Operational modes are configured through the trip-zone mechanism.</div>
+      </div>
+    </div>
+    <div class="page16setup-metrics">
+      <div class="page16setup-metric"><span>Platform</span><strong>TI F28379D + BOOSTXL-3PHGANINV</strong></div>
+      <div class="page16setup-metric"><span>Switching frequency</span><strong>50 kHz</strong></div>
+      <div class="page16setup-metric"><span>Sampling rate</span><strong>5 kHz</strong></div>
+      <div class="page16setup-metric load"><span>Phase A/B/C resistance</span><strong>Balanced: 2.5/2.5/2.5 Ω<br/>Unbalanced: 8/8/100 Ω</strong></div>
+    </div>
+  </div>
+  <div class="page-num">16</div>
+</section>
+
+
 <section class="slide content-slide page16v2">
   <div class="content-header">
     <h2 class="slide-title">Energy Bottleneck in CNN Implementation</h2>
@@ -523,7 +557,7 @@
       </div>
     </div>
   </div>
-  <div class="page-num">16</div>
+  <div class="page-num">17</div>
 </section>
 
 
@@ -554,7 +588,7 @@
       <div class="page17v1-note">This motivates event-driven and spike-based computation in Work 2: compute only where trajectory information exists.</div>
     </div>
   </div>
-  <div class="page-num">17</div>
+  <div class="page-num">18</div>
 </section>
 
 
