@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PhD Comprehensive Exam — Xiaoyi Lei</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="stage">
+
+<section class="slide title-slide active">
+  <div class="corner"></div>
+  <img class="corner-lines" src="assets/slide-01-image-01.png" alt="Decorative Penn State curve lines" />
+  <img class="logo" src="assets/slide-01-image-02.png" alt="Penn State logo" />
+  <div class="title-wrap">
+    <div class="kicker">PhD Comprehensive Exam</div>
+    <h1>Integrated Neuromorphic Architecture for Energy-Efficient Monitoring and Control of Power Electronic Systems</h1>
+    <div class="meta">
+      <strong>Xiaoyi Lei</strong><br />
+      Department of Electrical Engineering · The Pennsylvania State University<br />
+      Advisor: Dr. Yunting Liu
+      <span class="date">7.17.2026</span>
+    </div>
+  </div>
+  <div class="footer-note">1</div>
+</section>
+
+<section class="slide content-slide">
+  <img class="logo" src="assets/slide-01-image-02.png" alt="Penn State logo" />
+  <div class="content-header">
+    <h2 class="slide-title">Presentation Roadmap</h2>
+    <div class="chapter-label">Roadmap</div>
+  </div>
+  <div class="accent-bar"></div>
+  <div class="central-question">
+    <div class="label">Central question</div>
+    <div class="question">How can neuromorphic algorithm–architecture co-design enable energy-efficient monitoring and control of power electronic systems?</div>
+  </div>
+  <ol class="roadmap-list">
+    <li><span class="idx">1</span><span class="topic">Motivation and research gap</span><span class="desc">OC fault diagnosis under extremely unbalanced loading as a case study</span></li>
+    <li><span class="idx">2</span><span class="topic">Work 1: CNN-based OC fault diagnosis</span><span class="desc">Current-vector trajectory matrix representation for robust diagnosis</span></li>
+    <li><span class="idx">3</span><span class="topic">From diagnosis to embedded control-loop intelligence</span><span class="desc">Energy and data-movement bottlenecks in conventional implementation</span></li>
+    <li><span class="idx">4</span><span class="topic">Work 2: Neuromorphic computing for OC fault diagnosis</span><span class="desc">Event-driven and compute-in-memory for energy reduction</span></li>
+    <li><span class="idx">5</span><span class="topic">Proposed future work</span><span class="desc">Integrated neural-network architecture for OC fault diagnosis and SVPWM generation</span></li>
+    <li><span class="idx">6</span><span class="topic">Expected contributions and research plan</span><span class="desc">Dissertation-level contributions, timeline, and future implementation</span></li>
+  </ol>
+  <div class="page-num">2</div>
+</section>
+
+<section class="slide section-slide">
+  <div class="section-arc"></div>
+  <img class="section-lines" src="assets/slide-01-image-01.png" alt="Decorative Penn State curve lines" />
+  <div class="section-content">
+    <div class="part-label">Part I</div>
+    <h2>Motivation and Research Gap</h2>
+    <div class="section-subtitle">Open-circuit fault diagnosis under extremely unbalanced loading as a case study</div>
+    <div class="section-rule"></div>
+  </div>
+  <div class="section-page">3</div>
+</section>
+
+<section class="slide content-slide">
+  <img class="logo" src="assets/slide-01-image-02.png" alt="Penn State logo" />
+  <div class="content-header">
+    <h2 class="slide-title">Three-Phase Inverter System and Control Loop</h2>
+    <div class="chapter-label">Motivation</div>
+  </div>
+  <div class="accent-bar"></div>
+  <div class="system-loop-grid">
+    <div class="figure-card">
+      <img src="assets/slide-04-image-02.png" alt="Two-level three-phase voltage-source inverter system configuration." />
+      <div class="figure-caption">Two-level three-phase voltage-source inverter with six switch-level health states.</div>
+    </div>
+    <div class="figure-card control-card">
+      <img src="assets/slide-04-image-03.png" alt="Converter control loop with dq current control, fault diagnosis, PWM, and gating signals." />
+      <div class="figure-caption">Control-loop view: current control, fault diagnosis, PWM generation, and gating signals.</div>
+    </div>
+  </div>
+  <ul class="bottom-bullets">
+    <li>The two-level three-phase VSI contains <strong>six power switches</strong>: S<sub>a1</sub>–S<sub>c2</sub>.</li>
+    <li>Fault diagnosis operates alongside <strong>current control</strong> and <strong>PWM generation</strong>.</li>
+  </ul>
+  <div class="page-num">4</div>
+</section>
+
+
+
+
+
+
+
+
+
+<section class="slide content-slide slide5v9">
+  <div class="content-header">
+    <h2 class="slide-title">Single-Switch OC Faults Produce Semicircular Trajectories</h2>
+    <div class="chapter-label">Research gap</div>
+  </div>
+  <div class="accent-bar"></div>
+
+  <div class="slide5v9-top">
+    <div class="slide5v9-card">
+      <div class="slide5v9-card-title">Example: <em>S</em><sub>a1</sub> fault</div>
+      <div class="slide5v9-frame sa1">
+        <img src="assets/slide-05-image-01.png" alt="Example showing the conduction path and trajectory for an Sa1 open-circuit fault." />
+      </div>
+      <div class="slide5v9-caption">The <em>S</em><sub>a1</sub> open-circuit fault changes the phase-A conduction path and produces a semicircular current-vector trajectory.</div>
+    </div>
+    <div class="slide5v9-card">
+      <div class="slide5v9-card-title">General single-switch OC fault trajectories</div>
+      <div class="slide5v9-frame fig12">
+        <img src="assets/slide-05-image-02.png" alt="Proposal Fig. 1.2 showing the healthy mode and six single-switch OC fault trajectories in the alpha-beta domain." />
+      </div>
+      <div class="slide5v9-caption">Proposal Fig. 1.2. Healthy mode forms a circle, while each single-switch OC fault produces a semicircle with a distinct angular orientation.</div>
+    </div>
+  </div>
+
+  <div class="slide5v9-bottom">
+    <div class="slide5v9-kicker">Key observation</div>
+    <ul class="slide5v9-bullets">
+      <li>Under healthy balanced operation, the current vector forms a <strong>complete circle</strong>.</li>
+      <li>A single-switch OC fault removes one phase-current conduction interval.</li>
+      <li>The remaining trajectory becomes a <strong>semicircle</strong>.</li>
+      <li>The semicircle orientation provides a geometric signature for <strong>fault detection</strong> and <strong>fault locating</strong>.</li>
+    </ul>
+  </div>
+
+  <div class="page-num">5</div>
+</section>
+
+<section class="slide content-slide page6v1">
+  <div class="content-header">
+    <h2 class="slide-title">Double-Switch OC Faults Can Be Derived from Single-Switch Trajectories</h2>
+    <div class="chapter-label">Research gap</div>
+  </div>
+  <div class="accent-bar"></div>
+
+  <div class="page6v1-main">
+    <div class="page6v1-title">Representative double-switch OC fault trajectories</div>
+    <div class="page6v1-frame">
+      <img src="assets/slide-06-image-01.png" alt="Proposal Fig. 1.3 showing current vector trajectories under representative double-switch open-circuit faults." />
+    </div>
+    <div class="page6v1-caption">Proposal Fig. 1.3. Double-switch OC fault trajectories can appear as sectors or line segments depending on the faulty switch pair.</div>
+  </div>
+
+  <div class="page6v1-bottom">
+    <div class="page6v1-kicker">Key observation</div>
+    <ul class="page6v1-bullets">
+      <li>Double-switch OC faults combine two switch-level fault effects.</li>
+      <li>The resulting trajectory is the <strong>intersection</strong> of the corresponding single-switch trajectories.</li>
+      <li>Trajectory shape and angular orientation together distinguish double-switch fault modes.</li>
+    </ul>
+  </div>
+
+  <div class="page-num">6</div>
+</section>
+
+<section class="slide content-slide page7v1">
+  <div class="content-header">
+    <h2 class="slide-title">Define Inverter Operational Modes</h2>
+    <div class="chapter-label">Problem formulation</div>
+  </div>
+  <div class="accent-bar"></div>
+
+  <div class="page7v1-main">
+    <div class="page7v1-left">
+      <div class="page7v1-kicker">Switch-level health label</div>
+      <div class="label-vector">
+        <span>y = [</span>
+        <span class="slot">S<sub>a1</sub></span>
+        <span class="slot">S<sub>a2</sub></span>
+        <span class="slot">S<sub>b1</sub></span>
+        <span class="slot">S<sub>b2</sub></span>
+        <span class="slot">S<sub>c1</sub></span>
+        <span class="slot">S<sub>c2</sub></span>
+        <span>]</span>
+      </div>
+      <div class="page7v1-notation">
+        <div><strong>a, b, c</strong><br/>phase A, B, C</div>
+        <div><strong>1 / 2</strong><br/>upper / lower switch</div>
+      </div>
+      <ul class="page7v1-list">
+        <li>Each element corresponds to one power switch.</li>
+        <li>The diagnosis output is a switch-level operational mode.</li>
+        <li>This proposal focuses on healthy, single-switch, and double-switch modes.</li>
+      </ul>
+      <div class="binary-note">
+        <div><strong>0</strong><br/>healthy switch</div>
+        <div><strong>1</strong><br/>open-circuit fault</div>
+      </div>
+    </div>
+
+    <div class="page7v1-right">
+      <div class="page7v1-kicker">Mode set considered in this proposal</div>
+      <div class="mode-counts">
+        <div class="mode-box">
+          <div class="num">1</div>
+          <div class="label">healthy mode</div>
+        </div>
+        <div class="mode-box">
+          <div class="num">6</div>
+          <div class="label">single-switch faults</div>
+        </div>
+        <div class="mode-box">
+          <div class="num">15</div>
+          <div class="label">double-switch faults</div>
+        </div>
+      </div>
+      <div class="total-box">
+        Therefore, OC fault diagnosis is formulated as a <strong>22-class inverter operational-mode prediction task</strong>.
+      </div>
+      <ul class="page7v1-list" style="margin-top:1rem;">
+        <li>The trajectory geometry provides the observable signature.</li>
+        <li>The six-bit label defines the corresponding switch-level diagnosis target.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-num">7</div>
+</section>
+
+<section class="slide content-slide page8v1">
+  <div class="content-header">
+    <h2 class="slide-title">Unbalanced Loading Distorts Current-Vector Trajectory Signatures</h2>
+    <div class="chapter-label">Research gap</div>
+  </div>
+  <div class="accent-bar"></div>
+
+  <div class="page8v1-figure">
+    <div class="page8v1-title">Trajectory matrices under different operational modes and loading conditions</div>
+    <div class="page8v1-frame">
+      <img src="assets/slide-08-image-01.png" alt="Proposal Fig. 2.5 showing trajectory matrices under balanced loading and phase C load-unbalanced conditions." />
+    </div>
+    <div class="page8v1-caption">Proposal Fig. 2.5. Balanced and phase-C unbalanced loading generate different trajectory-matrix patterns for the same inverter operational mode labels.</div>
+  </div>
+
+  <div class="page8v1-bottom">
+    <div class="page8v1-points">
+      <div class="page8v1-kicker">Key observation</div>
+      <ul class="page8v1-bullets">
+        <li>Under balanced loading, trajectory matrices show clearer mode-dependent patterns.</li>
+        <li>Under extreme unbalance, the trajectory can <strong>shrink</strong> and become more sensitive to noise.</li>
+        <li>The diagnosis method must be robust to both <strong>fault mode</strong> and <strong>loading condition</strong>.</li>
+      </ul>
+    </div>
+    <div class="page8v1-equation">
+      <div class="page8v1-kicker">Unbalance metric</div>
+      <div class="equation-box">PCUR = |I<sub>avg</sub> − I<sub>min</sub>| / I<sub>avg</sub> × 100%</div>
+      <div class="equation-note">PCUR quantifies how strongly the smallest phase-current amplitude deviates from the average phase-current amplitude.</div>
+    </div>
+  </div>
+
+  <div class="page-num">8</div>
+</section>
+
+<section class="slide content-slide page9v1">
+  <div class="content-header">
+    <h2 class="slide-title">Mean-Vector Features Become Fragile Under Unbalanced Loading</h2>
+    <div class="chapter-label">Research gap</div>
+  </div>
+  <div class="accent-bar"></div>
+
+  <div class="page9v1-main">
+    <div class="page9v1-figure">
+      <div class="page9v1-card-title">Mean current vector location in the a–b–c domain</div>
+      <div class="page9v1-frame">
+        <img src="assets/slide-09-image-01.png" alt="Proposal Fig. 2.6 showing mean current vector locations under healthy mode and single-switch faults for balanced and unbalanced loading." />
+      </div>
+      <div class="page9v1-caption">Proposal Fig. 2.6. Under unbalanced loading, mean-vector locations move closer to threshold boundaries and become vulnerable to noise-induced crossing.</div>
+    </div>
+
+    <div class="page9v1-text">
+      <div class="page9v1-kicker">Mean-vector feature</div>
+      <div class="page9v1-equation">
+        μ<sub>m</sub> = 1/N · Σ<sub>k=1</sub><sup>N</sup> i<sub>m</sub>(k),&nbsp; m ∈ &#123;a,b,c&#125;
+      </div>
+      <ul class="page9v1-bullets">
+        <li>Mean-vector methods use average current displacement as a handcrafted diagnostic feature.</li>
+        <li>Fault locating often depends on predefined thresholds.</li>
+        <li>When one phase current is very small, noise can occupy a larger fraction of the feature value.</li>
+        <li>Threshold crossing becomes unstable under extremely unbalanced loading.</li>
+      </ul>
+      <div class="page9v1-note">
+        This motivates using trajectory-matrix learning rather than relying only on manually selected mean-vector features.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-num">9</div>
+</section>
+
+
+<section class="slide content-slide page10v2">
+  <div class="content-header">
+    <h2 class="slide-title">Phase-Based Features Also Fail Under Unbalanced Loading</h2>
+    <div class="chapter-label">Research gap</div>
+  </div>
+  <div class="accent-bar"></div>
+
+  <div class="page10v2-figure">
+    <div class="page10v2-title">Current-vector phase under balanced and unbalanced loading</div>
+    <div class="page10v2-frame">
+      <img src="assets/slide-10-image-01.png" alt="Comparison of proposal Fig. 2.7 and Fig. 2.8 showing current-vector phase under balanced and unbalanced loading." />
+    </div>
+    <div class="page10v2-caption">Proposal Fig. 2.7 and Fig. 2.8. Phase trajectories are distinguishable under balanced loading, but become distorted and less separable under unbalanced loading.</div>
+  </div>
+
+  <div class="page10v2-bottom">
+    <div class="page10v2-kicker">Key observation</div>
+    <ul class="page10v2-bullets">
+      <li><strong>Balanced:</strong> healthy and faulty phase behavior remains distinguishable.</li>
+      <li><strong>Unbalanced:</strong> trajectories become distorted and more similar.</li>
+      <li>Predefined phase / slope thresholds lose separability.</li>
+      <li>This motivates adaptive feature learning from trajectory matrices.</li>
+    </ul>
+  </div>
+
+  <div class="page-num">10</div>
+</section>
+
+<section class="slide content-slide page11v1">
+  <div class="content-header">
+    <h2 class="slide-title">Work 1 Objective: Robust OC Fault Diagnosis Under Extreme Unbalanced Loading Condition</h2>
+    <div class="chapter-label">Work 1</div>
+  </div>
+  <div class="accent-bar"></div>
+
+  <div class="page11v1-main">
+    <div class="page11v1-big">
+      <div class="page11v1-label">Research objective</div>
+      <div class="page11v1-question">
+        Learn robust fault signatures from distorted current-vector trajectories.
+      </div>
+      <div class="page11v1-arrow"></div>
+    </div>
+
+    <div class="page11v1-card">
+      <div class="page11v1-kicker">Proposed direction</div>
+      <ul class="page11v1-bullets">
+        <li><strong>Input:</strong> three-phase current measurements.</li>
+        <li><strong>Representation:</strong> current-vector trajectory matrix.</li>
+        <li><strong>Model:</strong> CNN-based operational-mode classifier.</li>
+        <li><strong>Target:</strong> 22-class OC fault diagnosis under balanced and extremely unbalanced loading.</li>
+        <li><strong>Evaluation:</strong> offline accuracy, online diagnosis, noise robustness, and comparison with conventional methods.</li>
+      </ul>
+      <div class="page11v1-bottom">
+        The goal is not only to classify OC faults, but to make the diagnosis robust when handcrafted trajectory features lose separability.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-num">11</div>
+</section>
+
+<section class="slide content-slide page12v1">
+  <div class="content-header">
+    <h2 class="slide-title">From Current Vector Trajectory to Trajectory Matrix</h2>
+    <div class="chapter-label">Work 1</div>
+  </div>
+  <div class="accent-bar"></div>
+
+  <div class="page12v1-main">
+    <div class="page12v1-figure">
+      <div class="page12v1-title">Encoding current-vector trajectories into a binary matrix</div>
+      <div class="page12v1-frame">
+        <img src="assets/slide-12-image-01.png" alt="Proposal Fig. 2.1 showing current-vector trajectories with different phase current amplitudes and their encoded trajectory matrix." />
+      </div>
+      <div class="page12v1-caption">Proposal Fig. 2.1. Current-vector samples in the α–β domain are projected onto a discretized binary trajectory matrix.</div>
+    </div>
+
+    <div class="page12v1-text">
+      <div class="page12v1-kicker">Encoding rule</div>
+      <div class="page12v1-equation">
+        <span class="eq-line">X<sub>D×D</sub>(m,n) = 1, if</span>
+        <span class="eq-line">m = ⌊ I<sub>α</sub>(t<sub>i</sub>) · D/4 + D/2 ⌋</span>
+        <span class="eq-line">n = ⌊ I<sub>β</sub>(t<sub>i</sub>) · D/4 + D/2 ⌋</span>
+        <span class="eq-line">otherwise, X<sub>D×D</sub>(m,n) = 0</span>
+      </div>
+      <ul class="page12v1-bullets">
+        <li>The Clarke transform maps three-phase currents into the α–β plane.</li>
+        <li>Each sampled current vector activates one pixel in the trajectory matrix.</li>
+        <li>The bias term <strong>D/2</strong> places the trajectory at the matrix center.</li>
+        <li>The scaling term <strong>D/4</strong> keeps trajectories bounded under amplitude changes.</li>
+      </ul>
+      <div class="page12v1-note">
+        This converts current waveforms into an image-like spatial representation suitable for CNN feature learning.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-num">12</div>
+</section>
+
+<section class="slide content-slide page13v1">
+  <div class="content-header">
+    <h2 class="slide-title">Proposed CNN-Based Diagnosis Framework</h2>
+    <div class="chapter-label">Work 1</div>
+  </div>
+  <div class="accent-bar"></div>
+
+  <div class="page13v1-main">
+    <div class="page13v1-figure">
+      <div class="page13v1-title">Proposed diagnosis methodology</div>
+      <div class="page13v1-frame">
+        <img src="assets/slide-13-image-01.png" alt="Proposal Fig. 2.9 schematic of the proposed CNN-based OC fault diagnosis methodology." />
+      </div>
+      <div class="page13v1-caption">Proposal Fig. 2.9. Three-phase current data are transformed into trajectory matrices and classified by CNN-based fault detection and locating modules.</div>
+    </div>
+
+    <div class="page13v1-text">
+      <div class="page13v1-kicker">Pipeline overview</div>
+      <ul class="page13v1-bullets">
+        <li><strong>Input:</strong> three-phase current measurements from the inverter.</li>
+        <li><strong>Transformation:</strong> Clarke transform maps current samples into the α–β domain.</li>
+        <li><strong>Representation:</strong> current-vector samples generate a binary trajectory matrix.</li>
+        <li><strong>Learning:</strong> CNN extracts spatial trajectory features through convolution and pooling.</li>
+        <li><strong>Output:</strong> fault detection and locating produce the switch-level operational-mode label.</li>
+      </ul>
+      <div class="page13v1-note">
+        This framework replaces handcrafted trajectory rules with learned spatial features for robust 22-class OC fault diagnosis.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-num">13</div>
+</section>
+
+<section class="slide content-slide page14v3">
+  <div class="content-header">
+    <h2 class="slide-title">Online Diagnosis: Fault Detection Followed by Fault Locating</h2>
+    <div class="chapter-label">Work 1</div>
+  </div>
+  <div class="accent-bar"></div>
+  <div class="page14v3-main">
+    <div class="page14v3-figure">
+      <div class="page14v3-title">Detection and locating during mode transient</div>
+      <div class="page14v3-imgbox"><img src="assets/slide-14-image-01.png" alt="Proposal Fig. 2.10 showing fault detection followed by fault locating during mode transient." /></div>
+      <div class="page14v3-caption">Proposal Fig. 2.10. Fault detection is triggered first; fault locating is activated after one fundamental cycle.</div>
+    </div>
+    <div class="page14v3-text">
+      <div class="page14v3-kicker">Online diagnosis logic</div>
+      <ul class="page14v3-bullets">
+        <li><strong>Fault detection CNN</strong> identifies whether the inverter has entered a faulty mode.</li>
+        <li>A trigger signal starts the fault-locating stage.</li>
+        <li>A one-fundamental-cycle delay ensures the locating trajectory matrix contains sufficient post-fault information.</li>
+        <li><strong>Fault locating CNN</strong> outputs the six-switch operational-mode label.</li>
+      </ul>
+      <div class="page14v3-flow">
+        <div class="page14v3-step"><strong>Step 1:</strong> detect non-circular trajectory distortion.</div>
+        <div class="page14v3-step"><strong>Step 2:</strong> wait for one complete post-fault cycle.</div>
+        <div class="page14v3-step"><strong>Step 3:</strong> locate the faulty switch-level mode.</div>
+      </div>
+      <div class="page14v3-note">This separates fast fault occurrence detection from switch-level fault locating.</div>
+    </div>
+  </div>
+  <div class="page-num">14</div>
+</section>
+
+
+<section class="slide content-slide page15v1">
+  <div class="content-header">
+    <h2 class="slide-title">Why Trajectory-Matrix Learning Preserves Fault Information</h2>
+    <div class="chapter-label">Work 1</div>
+  </div>
+  <div class="accent-bar"></div>
+  <div class="page15v1-main">
+    <div class="page15v1-figure">
+      <div class="page15v1-title">Feature extraction mechanisms</div>
+      <div class="page15v1-frame"><img src="assets/slide-15-image-01.png" alt="Proposal Fig. 2.11 comparing FFT plus Bayes network with the proposed trajectory-matrix CNN method." /></div>
+      <div class="page15v1-caption">Proposal Fig. 2.11. Conventional FFT + BN separates feature extraction and classification, while the proposed method learns features and classification jointly.</div>
+    </div>
+    <div class="page15v1-text">
+      <div class="page15v1-kicker">Key idea</div>
+      <ul class="page15v1-bullets">
+        <li>Traditional feature extraction compresses current signals before classification.</li>
+        <li>Handcrafted features may lose discriminative information under extreme unbalance.</li>
+        <li>The proposed method preserves the spatial trajectory pattern before CNN learning.</li>
+        <li>CNN training jointly optimizes feature extraction and classification for the diagnosis target.</li>
+      </ul>
+      <div class="page15v1-compare">
+        <div class="page15v1-box"><strong>Conventional:</strong><br/>manual feature extraction → fixed classifier</div>
+        <div class="page15v1-box"><strong>Proposed:</strong><br/>trajectory matrix → learned spatial features</div>
+      </div>
+      <div class="page15v1-note">This is the key reason the CNN-based approach is more robust when trajectory distortion is caused by both OC faults and loading imbalance.</div>
+    </div>
+  </div>
+  <div class="page-num">15</div>
+</section>
+
+
+<section class="slide content-slide page16v2">
+  <div class="content-header">
+    <h2 class="slide-title">Energy Bottleneck in CNN Implementation</h2>
+    <div class="chapter-label">Transition to Work 2</div>
+  </div>
+  <div class="accent-bar"></div>
+  <div class="page16v2-main">
+    <div class="page16v2-metrics">
+      <div class="page16v2-metric"><div class="value">7.94–337 mJ</div><div class="label">per CNN accelerator diagnosis</div><div class="source">Prior CNN accelerator studies</div></div>
+      <div class="page16v2-metric"><div class="value">500 mJ</div><div class="label">per diagnosis on commercial edge devices</div><div class="source">Commercial edge characterization</div></div>
+      <div class="page16v2-metric"><div class="value">0.12 mJ</div><div class="label">per model-based diagnosis</div><div class="source">Model-based baseline</div></div>
+      <div class="page16v2-metric"><div class="value">33.06M</div><div class="label">MAC operations in the preliminary CNN</div><div class="source">This proposal</div></div>
+    </div>
+    <div class="page16v2-bottom">
+      <div class="page16v2-card">
+        <div class="page16v2-kicker">Energy barrier</div>
+        <ul class="page16v2-bullets">
+          <li>Prior CNN implementations require much higher energy than model-based diagnosis.</li>
+          <li>Commercial edge inference can further increase the per-diagnosis energy.</li>
+          <li>At high sampling rates, this cost can scale to <strong>hundreds of watts</strong>.</li>
+          <li>This can exceed the auxiliary power budget of many converter systems.</li>
+        </ul>
+      </div>
+      <div class="page16v2-card">
+        <div class="page16v2-kicker">Implication</div>
+        <ul class="page16v2-bullets">
+          <li>CNN diagnosis is algorithmically attractive because it improves robustness.</li>
+          <li>However, dense convolutional inference creates a new implementation challenge.</li>
+          <li>Energy efficiency becomes the next requirement for practical deployment.</li>
+        </ul>
+        <div class="page16v2-takeaway">Next, I analyze where the CNN energy is spent in the sparse trajectory-matrix case.</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-num">16</div>
+</section>
+
+
+<section class="slide content-slide page17v1">
+  <div class="content-header">
+    <h2 class="slide-title">Where CNN Energy Is Wasted in Sparse Trajectory Matrices</h2>
+    <div class="chapter-label">Transition to Work 2</div>
+  </div>
+  <div class="accent-bar"></div>
+  <div class="page17v1-main">
+    <div class="page17v1-figure">
+      <div class="page17v1-title">Redundant convolution on zero-valued trajectory regions</div>
+      <div class="page17v1-frame"><img src="assets/slide-17-image-01.png" alt="Proposal Fig. 2.12 comparing convolution energy in CNN and SNN on zero regions of a trajectory matrix." /></div>
+      <div class="page17v1-caption">Proposal Fig. 2.12. Dense CNN convolution still processes zero regions, while spike-based computation can avoid events where no spikes are generated.</div>
+    </div>
+    <div class="page17v1-text">
+      <div class="page17v1-kicker">Why this matters here</div>
+      <ul class="page17v1-bullets">
+        <li>Each trajectory matrix stores only a small set of active current-vector pixels.</li>
+        <li>Standard CNN convolution applies kernels over the entire matrix, regardless of sparsity.</li>
+        <li>Many MAC operations occur on zero-valued or non-informative regions.</li>
+        <li>This creates unnecessary arithmetic and memory movement for embedded monitoring.</li>
+      </ul>
+      <div class="page17v1-metric-grid">
+        <div class="page17v1-metric"><strong>6%</strong>of matrix elements are active.</div>
+        <div class="page17v1-metric"><strong>~10%</strong>of MAC operations are associated with informative trajectory regions.</div>
+      </div>
+      <div class="page17v1-note">This motivates event-driven and spike-based computation in Work 2: compute only where trajectory information exists.</div>
+    </div>
+  </div>
+  <div class="page-num">17</div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="help">← / → to navigate · P to print</div>
+<div id="counter">1 / 17</div>
+</div>
+<script src="deck.js"></script>
+</body>
+</html>
