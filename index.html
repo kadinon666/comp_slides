@@ -652,6 +652,43 @@
 </section>
 
 
+<section class="slide content-slide page20noise">
+  <div class="content-header">
+    <h2 class="slide-title">Robustness Against Measurement Noise</h2>
+    <div class="chapter-label">Work 1 Validation</div>
+  </div>
+  <div class="accent-bar"></div>
+  <div class="page20noise-main">
+    <div class="page20noise-grid">
+      <div class="page20noise-accuracy-column">
+        <div class="page20noise-card compact">
+          <div class="page20noise-title">Offline accuracy: balanced loading</div>
+          <div class="page20noise-wide-frame"><img src="assets/work1-noise-accuracy-balanced.png" alt="Offline diagnostic accuracy at 40, 30, and 20 dB SNR under balanced loading." /></div>
+          <div class="page20noise-result"><strong>100%</strong> at 40, 30, and 20 dB SNR.</div>
+        </div>
+        <div class="page20noise-card compact">
+          <div class="page20noise-title">Offline accuracy: 88% PCUR</div>
+          <div class="page20noise-wide-frame"><img src="assets/work1-noise-accuracy-unbalanced.png" alt="Offline diagnostic accuracy at 40, 30, and 20 dB SNR under 88 percent PCUR." /></div>
+          <div class="page20noise-result"><strong>100%</strong> at 40 and 30 dB; <strong>96%</strong> at 20 dB.</div>
+        </div>
+      </div>
+      <div class="page20noise-card online">
+        <div class="page20noise-title">Online diagnosis: balanced loading</div>
+        <div class="page20noise-tall-frame"><img src="assets/work1-noise-online-balanced.png" alt="Balanced three-phase currents and online diagnosis results as injected noise increases from 40 to 20 dB SNR." /></div>
+        <div class="page20noise-result"><strong>No false alarm</strong> as injected noise increases.</div>
+      </div>
+      <div class="page20noise-card online">
+        <div class="page20noise-title">Online diagnosis: 88% PCUR</div>
+        <div class="page20noise-tall-frame"><img src="assets/work1-noise-online-unbalanced.png" alt="Extremely unbalanced three-phase currents and online diagnosis results as injected noise increases from 40 to 20 dB SNR." /></div>
+        <div class="page20noise-result"><strong>No false alarm</strong> under simultaneous noise and load imbalance.</div>
+      </div>
+    </div>
+    <div class="page20noise-takeaway"><strong>Takeaway:</strong> The trajectory-matrix CNN remains robust against measurement noise, including when noise and extreme loading imbalance occur simultaneously.</div>
+  </div>
+  <div class="page-num">20</div>
+</section>
+
+
 <section class="slide content-slide page16v2">
   <div class="content-header">
     <h2 class="slide-title">Energy Bottleneck in CNN Implementation</h2>
@@ -686,7 +723,7 @@
       </div>
     </div>
   </div>
-  <div class="page-num">20</div>
+  <div class="page-num">21</div>
 </section>
 
 
@@ -717,7 +754,7 @@
       <div class="page17v1-note">This motivates event-driven and spike-based computation in Work 2: compute only where trajectory information exists.</div>
     </div>
   </div>
-  <div class="page-num">21</div>
+  <div class="page-num">22</div>
 </section>
 
 
