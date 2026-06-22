@@ -902,3 +902,64 @@ h1 { margin:0; color:var(--psu-navy); font-weight:820; letter-spacing:-.04em; li
 .page17v1-metric strong { display:block; color:var(--psu-navy); font-size:clamp(20px,1.45vw,27px); line-height:1; margin-bottom:.32rem; }
 .page17v1-note { margin-top:.9rem; border-left:5px solid var(--psu-sky); background:#F2FAFE; border-radius:0 14px 14px 0; padding:.78rem .9rem; color:var(--ink); font-size:clamp(13px,.90vw,16px); line-height:1.32; }
 .page17v1 .page-num { bottom:3.7%; }
+
+/* Page 23: SNN encoding and LIF dynamics */
+.page23snn .content-header { position:absolute; left:7.6%; right:7.6%; top:5.2%; }
+.page23snn .accent-bar { position:absolute; left:7.6%; right:7.6%; top:15.0%; }
+.page23snn-main {
+  position:absolute; left:7.6%; right:7.6%; top:18.4%; bottom:8.2%;
+  display:grid; grid-template-rows:minmax(0,1fr) auto auto; gap:.7rem;
+}
+.page23snn-top { display:grid; grid-template-columns:1.58fr 1fr; gap:.9rem; min-height:0; }
+.page23snn-figure-card, .page23snn-equation-card {
+  border:1px solid var(--line); border-radius:16px; background:#fff;
+  box-shadow:0 10px 24px rgba(27,58,114,.07); padding:.68rem .76rem .62rem;
+  display:flex; flex-direction:column; min-width:0; min-height:0;
+}
+.page23snn-kicker {
+  color:var(--psu-navy); font-weight:830; font-size:clamp(13px,.88vw,16px); margin-bottom:.42rem;
+}
+.page23snn-figure-frame {
+  flex:1; min-height:0; background:#F8FAFC; border:1px solid #E6ECF2;
+  border-radius:9px; overflow:hidden; display:flex; align-items:center; justify-content:center;
+}
+.page23snn-figure-frame img { width:100%; height:100%; object-fit:contain; display:block; }
+.page23snn-caption { margin-top:.4rem; color:var(--muted); font-size:clamp(10px,.7vw,13px); line-height:1.22; }
+.page23snn-equation-card { justify-content:flex-start; }
+.page23snn-equation {
+  margin:.5rem 0 .3rem; padding:.9rem .35rem; background:#F8FAFC;
+  border:1px solid #E6ECF2; border-radius:10px; overflow:hidden;
+}
+.page23snn-equation math {
+  font-family:"STIX Two Math","Cambria Math","Times New Roman",serif;
+  font-size:clamp(18px,1.35vw,25px); color:#111827;
+}
+.page23snn-threshold {
+  padding:.55rem .35rem; background:#F2FAFE; border-left:4px solid var(--psu-sky);
+  border-radius:0 9px 9px 0;
+}
+.page23snn-threshold math {
+  font-family:"STIX Two Math","Cambria Math","Times New Roman",serif;
+  font-size:clamp(15px,1.08vw,20px); color:var(--psu-navy);
+}
+.page23snn-definitions { margin:.7rem 0 0; display:grid; grid-template-columns:1fr 1fr; gap:.45rem .65rem; }
+.page23snn-definitions div { border-top:1px solid #E2E8F0; padding-top:.34rem; }
+.page23snn-definitions dt { color:var(--psu-navy); font-family:"Cambria Math","Times New Roman",serif; font-weight:700; font-size:clamp(12px,.82vw,15px); }
+.page23snn-definitions dd { margin:.12rem 0 0; color:var(--muted); font-size:clamp(10px,.68vw,12.5px); line-height:1.2; }
+.page23snn-logic { display:grid; grid-template-columns:1fr 1fr; gap:.75rem; }
+.page23snn-logic-card {
+  border:1px solid #D7EAF6; border-radius:13px; background:#F8FAFC;
+  padding:.58rem .72rem; display:grid; grid-template-columns:auto 1fr; gap:.75rem; align-items:center;
+}
+.page23snn-logic-card.active-event { background:#F2FAFE; border-color:#B9DFF2; }
+.page23snn-logic-math {
+  color:var(--psu-navy); font-family:"Cambria Math","Times New Roman",serif;
+  font-size:clamp(17px,1.18vw,22px); font-weight:700; white-space:nowrap;
+}
+.page23snn-logic-text { color:var(--ink); font-size:clamp(11px,.76vw,14px); line-height:1.25; }
+.page23snn-takeaway {
+  border-left:5px solid var(--psu-sky); background:#F2FAFE; border-radius:0 12px 12px 0;
+  padding:.55rem .72rem; color:var(--ink); font-size:clamp(12px,.82vw,15px); line-height:1.25;
+}
+.page23snn-takeaway strong { color:var(--psu-navy); }
+.page23snn .page-num { bottom:3.7%; }

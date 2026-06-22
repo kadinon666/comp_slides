@@ -85,13 +85,6 @@
 </section>
 
 
-
-
-
-
-
-
-
 <section class="slide content-slide slide5v9">
   <div class="content-header">
     <h2 class="slide-title">Single-Switch OC Faults Produce Semicircular Trajectories</h2>
@@ -757,25 +750,73 @@
   <div class="page-num">22</div>
 </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<section class="slide content-slide page23snn">
+  <div class="content-header">
+    <h2 class="slide-title">From Sparse Trajectory Matrix to Event-Driven Computation</h2>
+    <div class="chapter-label">Work 2</div>
+  </div>
+  <div class="accent-bar"></div>
+  <div class="page23snn-main">
+    <div class="page23snn-top">
+      <div class="page23snn-figure-card">
+        <div class="page23snn-kicker">Trajectory-matrix spike-rate encoding</div>
+        <div class="page23snn-figure-frame">
+          <img src="assets/work2-spike-rate-encoding.png" alt="Proposal Figure 2.14 showing trajectory matrix elements mapped to integrate-and-fire neurons and output spike events." />
+        </div>
+        <div class="page23snn-caption">Proposal Fig. 2.14. Binary matrix elements are converted into input currents; active elements produce spike events, while zero-valued elements remain inactive.</div>
+      </div>
+      <div class="page23snn-equation-card">
+        <div class="page23snn-kicker">Leaky integrate-and-fire neuron</div>
+        <div class="page23snn-equation">
+          <math display="block" aria-label="Leaky integrate-and-fire membrane-voltage equation">
+            <mrow>
+              <msub><mi>τ</mi><mi>m</mi></msub>
+              <mfrac>
+                <mrow><mi>d</mi><msub><mi>V</mi><mi>m</mi></msub><mo>(</mo><mi>t</mi><mo>)</mo></mrow>
+                <mrow><mi>d</mi><mi>t</mi></mrow>
+              </mfrac>
+              <mo>=</mo>
+              <mo>−</mo><mo>(</mo><msub><mi>V</mi><mi>m</mi></msub><mo>(</mo><mi>t</mi><mo>)</mo><mo>−</mo><msub><mi>V</mi><mtext>rest</mtext></msub><mo>)</mo>
+              <mo>+</mo><mi>R</mi><mi>I</mi><mo>(</mo><mi>t</mi><mo>)</mo>
+            </mrow>
+          </math>
+        </div>
+        <div class="page23snn-threshold">
+          <math display="block" aria-label="Spike threshold and reset condition">
+            <mrow>
+              <msub><mi>V</mi><mi>m</mi></msub><mo>(</mo><mi>t</mi><mo>)</mo>
+              <mo>≥</mo><msub><mi>V</mi><mtext>th</mtext></msub>
+              <mo>⇒</mo><mtext>spike</mtext><mo>,</mo>
+              <mspace width=".5em"></mspace>
+              <msub><mi>V</mi><mi>m</mi></msub><mo>←</mo><msub><mi>V</mi><mtext>reset</mtext></msub>
+            </mrow>
+          </math>
+        </div>
+        <dl class="page23snn-definitions">
+          <div><dt>τ<sub>m</sub> = RC</dt><dd>membrane time constant</dd></div>
+          <div><dt>V<sub>m</sub>(t)</dt><dd>membrane voltage</dd></div>
+          <div><dt>I(t)</dt><dd>input current from the matrix element</dd></div>
+          <div><dt>V<sub>th</sub></dt><dd>firing threshold</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="page23snn-logic">
+      <div class="page23snn-logic-card inactive">
+        <div class="page23snn-logic-math"><i>x</i><sub>ij</sub> = 0 &nbsp;⇒&nbsp; <i>I</i>(t) = 0</div>
+        <div class="page23snn-logic-text"><strong>Inactive region:</strong> membrane voltage remains at rest, no spike is emitted, and no downstream computation is triggered.</div>
+      </div>
+      <div class="page23snn-logic-card active-event">
+        <div class="page23snn-logic-math"><i>x</i><sub>ij</sub> = 1 &nbsp;⇒&nbsp; <i>I</i>(t) &gt; 0</div>
+        <div class="page23snn-logic-text"><strong>Informative region:</strong> membrane voltage integrates toward the threshold and generates spike events.</div>
+      </div>
+    </div>
+    <div class="page23snn-takeaway"><strong>Takeaway:</strong> Only active trajectory-matrix elements generate events, allowing SNN computation to follow informative trajectory regions rather than the entire matrix.</div>
+  </div>
+  <div class="page-num">23</div>
+</section>
 
 <div id="help">← / → to navigate · P to print</div>
-<div id="counter">1 / 17</div>
+<div id="counter">1 / 23</div>
 </div>
 <script src="deck.js"></script>
 </body>
