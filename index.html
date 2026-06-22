@@ -973,8 +973,161 @@
   <div class="page-num">31</div>
 </section>
 
+<section class="slide content-slide work3-slide page32transition">
+  <div class="content-header"><h2 class="slide-title">Work 3: Integrated Monitoring and Modulation</h2><div class="chapter-label">Transition to Work 3</div></div>
+  <div class="accent-bar"></div>
+  <div class="page32-main">
+    <div class="page32-question">How can neuromorphic computing progress from an efficient diagnosis algorithm toward an integrated converter architecture?</div>
+    <div class="page32-stages">
+      <div class="work3-card page32-stage"><div class="work-label">Work 1</div><strong>Robust monitoring</strong><p>Preserve complete current-vector trajectories and learn OC-fault features automatically.</p><div class="result">100% accuracy at 88% PCUR</div></div>
+      <div class="page32-arrow">→</div>
+      <div class="work3-card page32-stage"><div class="work-label">Work 2</div><strong>Efficient monitoring</strong><p>Exploit trajectory sparsity through event-driven SNN inference.</p><div class="result">11 μJ per diagnosis</div></div>
+      <div class="page32-arrow">→</div>
+      <div class="work3-card page32-stage"><div class="work-label">Work 3</div><strong>Task integration</strong><p>Integrate OC fault diagnosis and SVPWM generation within one neural architecture.</p><div class="result">Reduce repeated data movement</div></div>
+    </div>
+    <div class="work3-takeaway"><strong>Next question:</strong> can monitoring and modulation share one matrix-based implementation while preserving their task-specific outputs?</div>
+  </div>
+  <div class="page-num">32</div>
+</section>
+
+<section class="slide content-slide work3-slide page33energy">
+  <div class="content-header"><h2 class="slide-title">Data Movement Dominates Neural-Hardware Energy</h2><div class="chapter-label">Work 3 Motivation</div></div>
+  <div class="accent-bar"></div>
+  <div class="page33-main">
+    <div class="work3-card page33-figure"><div class="work3-card-title">Energy per operation normalized to one MAC</div><div class="page33-frame"><img src="assets/work3-energy-per-operation.png" alt="Energy per operation normalized to one MAC for arithmetic, SRAM access, and DRAM access." /></div><div class="work3-caption">Proposal Fig. 4.1. Data from a 65 nm spatial accelerator show that memory access can cost substantially more energy than arithmetic.</div></div>
+    <div class="page33-points">
+      <div class="page33-point"><strong>≈6×</strong><span>energy of one MAC for an on-chip SRAM access above 100 KiB.</span></div>
+      <div class="page33-point"><strong>≈200×</strong><span>energy of one MAC for an off-chip DRAM access.</span></div>
+      <div class="page33-point"><strong>10 pJ</strong><span>for one 32-bit read from an 8 kB SRAM, compared with 0.20 pJ for an 8-bit multiplication.</span></div>
+      <div class="page33-point emphasis"><strong>Architecture matters</strong><span>Reducing arithmetic alone does not guarantee lower energy when parameter and state movement remain frequent.</span></div>
+    </div>
+  </div>
+  <div class="page-num">33</div>
+</section>
+
+<section class="slide content-slide work3-slide page34architecture">
+  <div class="content-header"><h2 class="slide-title">Integrated OC Diagnosis and SVPWM Architecture</h2><div class="chapter-label">Proposed Work</div></div>
+  <div class="accent-bar"></div>
+  <div class="page34-main">
+    <div class="work3-card page34-figure"><div class="work3-card-title">Multi-input, multi-output neural-network architecture</div><div class="page34-frame"><img src="assets/work3-integrated-architecture.png" alt="Proposed integrated architecture with OC diagnosis and SVPWM branches sharing the principal hidden layers." /></div><div class="work3-caption">Proposal Fig. 4.2. The two tasks retain their own input and output layers while sharing the principal hidden layers.</div></div>
+    <div class="page34-text">
+      <div class="page34-branch"><span>OC diagnosis branch</span><strong>Trajectory matrix → operational mode</strong><p>A sparse current-vector trajectory matrix is classified into the healthy, single-switch, or double-switch OC mode.</p></div>
+      <div class="page34-branch"><span>SVPWM branch</span><strong>Voltage reference → sector and dwell time</strong><p>Normalized three-phase voltage references produce sector-selection and dwell-time outputs.</p></div>
+      <div class="page34-branch page34-shared"><span>Shared implementation</span><strong>One principal hidden-layer path</strong><p>Task-specific interfaces are retained while repeated hidden-layer parameter transfer is reduced.</p></div>
+      <div class="work3-takeaway"><strong>Energy mechanism:</strong> the proposed benefit comes from reduced data movement, not from reusing intermediate computation between the two tasks.</div>
+    </div>
+  </div>
+  <div class="page-num">34</div>
+</section>
+
+<section class="slide content-slide work3-slide page35svpwm">
+  <div class="content-header"><h2 class="slide-title">Neural-Network-Based SVPWM Generation</h2><div class="chapter-label">Proposed Work</div></div>
+  <div class="accent-bar"></div>
+  <div class="page35-main">
+    <div class="work3-placeholder"><strong>Reserved SVPWM figure area</strong><span>Normalized voltage-reference input, sector selection, dwell-ratio generation, and switching-vector sequence.</span></div>
+    <div class="page35-content">
+      <div class="page35-equation"><span>Sector output group</span><math display="block"><mrow><msub><mi mathvariant="bold">y</mi><mi>k</mi></msub><mo>=</mo><mo>[</mo><msub><mi>s</mi><mi>k</mi></msub><mo>,</mo><msub><mi>z</mi><mrow><mn>1</mn><mo>,</mo><mi>k</mi></mrow></msub><mo>,</mo><msub><mi>z</mi><mrow><mn>2</mn><mo>,</mo><mi>k</mi></mrow></msub><mo>,</mo><msub><mi>z</mi><mrow><mn>0</mn><mo>,</mo><mi>k</mi></mrow></msub><mo>]</mo></mrow></math></div>
+      <div class="page35-equation"><span>Sector and dwell-ratio selection</span><math display="block"><mrow><msup><mi>k</mi><mo>*</mo></msup><mo>=</mo><munder><mo>arg max</mo><mi>k</mi></munder><msub><mi>s</mi><mi>k</mi></msub><mo>,</mo><mspace width="1em"/><mo>[</mo><msub><mi>d</mi><mn>1</mn></msub><mo>,</mo><msub><mi>d</mi><mn>2</mn></msub><mo>,</mo><msub><mi>d</mi><mn>0</mn></msub><mo>]</mo><mo>=</mo><mi>softmax</mi><mo>(</mo><msub><mi mathvariant="bold">z</mi><msup><mi>k</mi><mo>*</mo></msup></msub><mo>)</mo></mrow></math></div>
+      <ul class="page35-list"><li>Six output groups represent the six conventional SVPWM sectors.</li><li>Winner-take-all selection determines the active sector.</li><li>Softmax produces nonnegative dwell ratios satisfying <strong>d₁ + d₂ + d₀ = 1</strong>.</li><li>Actual dwell times are obtained from <strong>Tᵢ = dᵢTₛ</strong>.</li></ul>
+      <div class="work3-takeaway"><strong>Objective:</strong> preserve conventional SVPWM outputs while reformulating their generation as matrix-based inference.</div>
+    </div>
+  </div>
+  <div class="page-num">35</div>
+</section>
+
+<section class="slide content-slide work3-slide page36training">
+  <div class="content-header"><h2 class="slide-title">Training Strategy and Transient Handling</h2><div class="chapter-label">Proposed Work</div></div>
+  <div class="accent-bar"></div>
+  <div class="page36-main">
+    <div class="work3-placeholder"><strong>Reserved training-strategy figure area</strong><span>Two-stage branch training, frozen shared-layer parameters, and transient-inclusive diagnosis samples.</span></div>
+    <div class="page36-stages">
+      <div class="page36-stage"><span>1</span><strong>Train the SVPWM branch</strong><p>Generate synthetic voltage-reference samples across the linear modulation range and minimize voltage-reconstruction error.</p></div>
+      <div class="page36-stage"><span>2</span><strong>Freeze the shared layers</strong><p>Preserve the learned sector-selection and dwell-time mapping before diagnosis training.</p></div>
+      <div class="page36-stage"><span>3</span><strong>Train the OC branch</strong><p>Update the trajectory-matrix input, convolutional layers, and diagnosis output while retaining the shared-layer parameters.</p></div>
+      <div class="page36-stage page36-transient"><span>4</span><strong>Include mode transitions</strong><p>Label transient trajectory matrices as healthy so that the diagnosis output remains non-oscillatory during operational-mode transitions.</p></div>
+    </div>
+    <div class="work3-takeaway"><strong>Expected simplification:</strong> transient-inclusive training removes the need for separate fault-detection and fault-locating CNNs in the integrated architecture.</div>
+  </div>
+  <div class="page-num">36</div>
+</section>
+
+<section class="slide content-slide work3-slide page37offline">
+  <div class="content-header"><h2 class="slide-title">Preliminary Offline Validation</h2><div class="chapter-label">Preliminary Results</div></div>
+  <div class="accent-bar"></div>
+  <div class="page37-main">
+    <div class="work3-card page37-figure"><div class="work3-card-title">OC diagnosis confusion matrix with the SVPWM branch integrated</div><div class="page37-frame"><img src="assets/work3-confusion-matrix.png" alt="Preliminary confusion matrix for the integrated OC diagnosis and SVPWM architecture." /></div><div class="work3-caption">Proposal Fig. 4.3. The OC branch is trained after the shared fully connected layers are frozen.</div></div>
+    <div class="page37-results">
+      <div class="page37-metrics"><div class="page37-metric"><strong>99.84%</strong><span>OC fault diagnosis accuracy</span></div><div class="page37-metric"><strong>0.16%</strong><span>accuracy degradation after integration</span></div><div class="page37-metric"><strong>22</strong><span>inverter operational modes</span></div><div class="page37-metric"><strong>10 kHz</strong><span>switching and sampling frequency</span></div></div>
+      <div class="page37-param"><div class="work3-card-title">Case-study parameters</div><dl><dt>Rated current</dt><dd>10 A</dd><dt>Phase resistance</dt><dd>10 Ω</dd><dt>Load inductance</dt><dd>1 mH</dd><dt>Load type</dt><dd>RL</dd></dl></div>
+      <div class="work3-takeaway"><strong>Preliminary result:</strong> the shared-layer architecture preserves high OC diagnosis accuracy after integrating the SVPWM branch.</div>
+    </div>
+  </div>
+  <div class="page-num">37</div>
+</section>
+
+<section class="slide content-slide work3-slide page38online">
+  <div class="content-header"><h2 class="slide-title">Preliminary Online Validation</h2><div class="chapter-label">Preliminary Results</div></div>
+  <div class="accent-bar"></div>
+  <div class="page38-main">
+    <div class="page38-grid">
+      <div class="work3-card page38-case"><div class="work3-card-title">Healthy current-amplitude step</div><div class="page38-frame"><img src="assets/work3-online-step.png" alt="Online current synthesis, diagnosis, sector selection, and dwell-time results during a healthy current-amplitude step." /></div><div class="page38-result"><strong>No false diagnosis</strong> during the current-amplitude transition.</div></div>
+      <div class="work3-card page38-case"><div class="work3-card-title">Single-switch OC fault: 100000</div><div class="page38-frame"><img src="assets/work3-online-single-fault.png" alt="Online results for a transition from healthy operation to single-switch fault mode 100000." /></div><div class="page38-result"><strong>Single-switch fault</strong> is diagnosed while modulation outputs remain available.</div></div>
+      <div class="work3-card page38-case"><div class="work3-card-title">Double-switch OC fault: 101000</div><div class="page38-frame"><img src="assets/work3-online-double-fault.png" alt="Online results for a transition from healthy operation to double-switch fault mode 101000." /></div><div class="page38-result"><strong>Double-switch fault</strong> is diagnosed while modulation outputs remain available.</div></div>
+    </div>
+    <div class="work3-takeaway"><strong>Preliminary evidence:</strong> the integrated network synthesizes three-phase currents and produces diagnosis, sector-selection, and dwell-time outputs under healthy and faulty operation.</div>
+  </div>
+  <div class="page-num">38</div>
+</section>
+
+<section class="slide content-slide work3-slide page39fpga">
+  <div class="content-header"><h2 class="slide-title">Planned FPGA Implementation</h2><div class="chapter-label">Future Work</div></div>
+  <div class="accent-bar"></div>
+  <div class="page39-main">
+    <div class="work3-placeholder"><strong>Reserved FPGA architecture figure area</strong><span>Current and voltage acquisition, integrated SNN inference, OC diagnosis output, and SVPWM timing generation.</span></div>
+    <div class="page39-plan">
+      <div class="page39-item"><strong>Convert the integrated CNN to an SNN</strong><p>Evaluate whether event-driven inference can preserve both diagnosis and modulation outputs.</p></div>
+      <div class="page39-item"><strong>Map parameters near processing logic</strong><p>Investigate an FPGA implementation that limits repeated movement of neural-network parameters.</p></div>
+      <div class="page39-item"><strong>Implement online monitoring and modulation</strong><p>Generate OC diagnosis, sector-selection, and dwell-time outputs during converter operation.</p></div>
+      <div class="page39-item"><strong>Characterize the embedded implementation</strong><p>Measure latency, FPGA resource utilization, power, and energy consumption.</p></div>
+      <div class="work3-takeaway"><strong>Implementation objective:</strong> establish the feasibility of integrated neuromorphic monitoring and modulation on embedded hardware.</div>
+    </div>
+  </div>
+  <div class="page-num">39</div>
+</section>
+
+<section class="slide content-slide work3-slide page40future">
+  <div class="content-header"><h2 class="slide-title">Future Plan and Expected Goals</h2><div class="chapter-label">Future Work</div></div>
+  <div class="accent-bar"></div>
+  <div class="page40-main">
+    <div class="page40-grid">
+      <div class="work3-card page40-task"><div class="task-label">Task 1</div><strong>Integrated SNN conversion</strong><p>Convert the shared CNN architecture to an SNN and calibrate the event-driven implementation.</p><div class="page40-goal"><b>Expected goal:</b> maintain diagnosis and modulation capability with lower inference energy.</div></div>
+      <div class="work3-card page40-task"><div class="task-label">Task 2</div><strong>FPGA realization</strong><p>Implement the integrated architecture with neural-network parameters located near processing logic.</p><div class="page40-goal"><b>Expected goal:</b> support embedded online monitoring and modulation with reduced parameter movement.</div></div>
+      <div class="work3-card page40-task"><div class="task-label">Task 3</div><strong>Online experimental validation</strong><p>Evaluate healthy operation, current transitions, and single- and double-switch OC faults.</p><div class="page40-goal"><b>Expected goal:</b> verify diagnosis stability, SVPWM outputs, and synthesized converter waveforms.</div></div>
+      <div class="work3-card page40-task"><div class="task-label">Task 4</div><strong>Energy and implementation benchmark</strong><p>Compare the integrated architecture with separate neural blocks and conventional SVPWM and SPWM.</p><div class="page40-goal"><b>Expected goal:</b> quantify energy, latency, FPGA resources, and output-waveform performance.</div></div>
+    </div>
+    <div class="work3-takeaway"><strong>Scope:</strong> these tasks define the remaining research direction without assigning fixed completion dates or presuming the final experimental outcome.</div>
+  </div>
+  <div class="page-num">40</div>
+</section>
+
+<section class="slide content-slide work3-slide page41contributions">
+  <div class="content-header"><h2 class="slide-title">Dissertation Contributions</h2><div class="chapter-label">Conclusion</div></div>
+  <div class="accent-bar"></div>
+  <div class="page41-main">
+    <div class="page41-stages">
+      <div class="work3-card page41-stage"><span>Work 1</span><strong>Robust monitoring</strong><p>Current-vector trajectory matrices and CNN-based feature learning overcome extreme loading imbalance.</p><div class="page41-metric">100% accuracy at 88% PCUR</div></div>
+      <div class="page41-arrow">→</div>
+      <div class="work3-card page41-stage"><span>Work 2</span><strong>Energy-efficient monitoring</strong><p>Sparse SNN inference concentrates computation on informative trajectory regions.</p><div class="page41-metric">11 μJ and 382× reduction</div></div>
+      <div class="page41-arrow">→</div>
+      <div class="work3-card page41-stage"><span>Work 3 · Expected contribution</span><strong>Proposed integrated architecture</strong><p>OC fault diagnosis and SVPWM generation are formulated within one neural implementation.</p><div class="page41-metric">Monitoring + modulation</div></div>
+    </div>
+    <div class="page41-final">Toward energy-efficient neuromorphic architectures for intelligent power electronic systems</div>
+  </div>
+  <div class="page-num">41</div>
+</section>
+
 <div id="help">← / → to navigate · P to print</div>
-<div id="counter">1 / 31</div>
+<div id="counter">1 / 41</div>
 </div>
 <script src="deck.js"></script>
 </body>
