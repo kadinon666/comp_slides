@@ -815,8 +815,166 @@
   <div class="page-num">23</div>
 </section>
 
+<section class="slide content-slide work2-slide page24architecture">
+  <div class="content-header"><h2 class="slide-title">Spatially Selective SNN Computation</h2><div class="chapter-label">Work 2</div></div>
+  <div class="accent-bar"></div>
+  <div class="page24architecture-main">
+    <div class="work2-figure-card">
+      <div class="work2-card-title">Event paths depend on trajectory geometry</div>
+      <div class="page24architecture-frame"><img src="assets/work2-snn-architecture.png" alt="SNN architecture and spatial event paths for healthy and phase-A upper-switch fault trajectories." /></div>
+      <div class="work2-caption">Proposal Fig. 2.13. Healthy and faulty trajectory matrices activate different spatial regions and therefore different output neurons.</div>
+    </div>
+    <div class="page24architecture-text">
+      <div class="work2-mode-card"><span class="work2-mode-tag">Healthy mode</span><strong>Circular trajectory</strong><p>Only active perimeter pixels generate spikes. Interior zero-valued regions remain inactive, and the healthy output neuron becomes dominant.</p></div>
+      <div class="work2-mode-card fault"><span class="work2-mode-tag">OC fault</span><strong>Distorted trajectory</strong><p>The active spatial path changes with the missing conduction interval, redirecting spike activity toward the corresponding fault neuron.</p></div>
+      <div class="work2-stat-row"><div><strong>6%</strong><span>active matrix elements</span></div><div><strong>22</strong><span>output operational modes</span></div></div>
+      <div class="work2-note">Zero-valued regions generate no events; computation follows the current-vector trajectory.</div>
+    </div>
+  </div>
+  <div class="page-num">24</div>
+</section>
+
+<section class="slide content-slide work2-slide page25conversion">
+  <div class="content-header"><h2 class="slide-title">CNN-to-SNN Conversion Design Flow</h2><div class="chapter-label">Work 2</div></div>
+  <div class="accent-bar"></div>
+  <div class="page25conversion-main">
+    <div class="page25-flow">
+      <div class="page25-step"><span>1</span><strong>Compatible CNN</strong><small>zero bias · ReLU · no pooling</small></div><div class="page25-arrow">→</div>
+      <div class="page25-step"><span>2</span><strong>CNN training</strong><small>learn kernels and classifier weights</small></div><div class="page25-arrow">→</div>
+      <div class="page25-step"><span>3</span><strong>Neuron replacement</strong><small>ReLU → rate-coded LIF neuron</small></div><div class="page25-arrow">→</div>
+      <div class="page25-step"><span>4</span><strong>Weight transfer</strong><small>CNN weights → synaptic weights</small></div><div class="page25-arrow">→</div>
+      <div class="page25-step"><span>5</span><strong>Calibration</strong><small>select firing-rate scaling factor</small></div>
+    </div>
+    <div class="page25-bottom">
+      <div class="page25-curves work2-panel">
+        <div class="work2-card-title">Compatible positive input-output behavior</div>
+        <div class="page25-curve-grid">
+          <div class="page25-curve">
+            <svg viewBox="0 0 300 190" role="img" aria-label="ReLU activation function">
+              <line x1="38" y1="155" x2="278" y2="155" class="axis"/><line x1="145" y1="174" x2="145" y2="18" class="axis"/>
+              <polyline points="38,155 145,155 267,35" class="relu-line"/><text x="224" y="55">f(x)=max(0,x)</text><text x="264" y="178">input</text><text x="19" y="25">output</text>
+            </svg>
+            <strong>ReLU activation</strong><span>Zero response for negative input; linear response for positive input.</span>
+          </div>
+          <div class="page25-curve">
+            <svg viewBox="0 0 300 190" role="img" aria-label="Rate-coded LIF firing response">
+              <line x1="38" y1="155" x2="278" y2="155" class="axis"/><line x1="38" y1="174" x2="38" y2="18" class="axis"/>
+              <line x1="100" y1="155" x2="100" y2="28" class="threshold-line"/><path d="M38 155 L100 155 C118 150 134 133 150 113 C178 80 215 53 267 35" class="lif-line"/>
+              <text x="88" y="176">I<tspan baseline-shift="sub">th</tspan></text><text x="197" y="64">calibrated range</text><text x="250" y="178">current</text><text x="6" y="25">rate</text>
+            </svg>
+            <strong>Rate-coded LIF response</strong><span>Approximately linear above threshold over the calibrated operating range.</span>
+          </div>
+        </div>
+      </div>
+      <div class="page25-parameters work2-panel">
+        <div class="work2-card-title">What is fixed, learned, and calibrated?</div>
+        <div class="page25-param-group fixed"><span>Fixed by design</span><p>Bias terms = 0<br/>ReLU activations<br/>No pooling layers<br/>Default LIF firing threshold</p></div>
+        <div class="page25-param-group learned"><span>Learned during CNN training</span><p>Convolution kernels<br/>Fully connected weights</p></div>
+        <div class="page25-param-group calibrated"><span>Calibrated after conversion</span><p>Firing-rate scaling factor using diagnosis accuracy</p></div>
+      </div>
+    </div>
+    <div class="work2-takeaway"><strong>Design principle:</strong> rate-coded LIF neurons approximate ReLU's positive response, enabling trained CNN weights to be reused for event-driven inference.</div>
+  </div>
+  <div class="page-num">25</div>
+</section>
+
+<section class="slide content-slide work2-slide page26firing">
+  <div class="content-header"><h2 class="slide-title">Firing-Rate Calibration: Accuracy and Energy</h2><div class="chapter-label">Work 2</div></div>
+  <div class="accent-bar"></div>
+  <div class="page26firing-main">
+    <div class="work2-figure-card"><div class="work2-card-title">Accuracy and synaptic energy versus firing-rate scaling</div><div class="page26firing-frame"><img src="assets/work2-firing-rate-accuracy-energy.png" alt="Diagnosis accuracy and Loihi synaptic energy versus firing-rate scaling factor." /></div><div class="work2-caption">Proposal Fig. 3.14. Higher firing rate increases spike activity and synaptic energy.</div></div>
+    <div class="page26firing-text">
+      <div class="page26-rate-card"><strong>100 Hz</strong><span>60% accuracy</span><p>Spike activity is insufficient for reliable output-neuron separation.</p></div>
+      <div class="page26-rate-card"><strong>200–300 Hz</strong><span>80% plateau</span><p>The target neuron may still fail to fire at the final time step.</p></div>
+      <div class="page26-rate-card selected"><strong>330 Hz</strong><span>100% accuracy</span><p>Selected as the minimum tested rate that recovers CNN-level accuracy.</p></div>
+      <div class="work2-note">Increasing firing rate beyond the accuracy requirement would add synaptic events without improving classification.</div>
+    </div>
+  </div>
+  <div class="page-num">26</div>
+</section>
+
+<section class="slide content-slide work2-slide page27implementation">
+  <div class="content-header"><h2 class="slide-title">Work 2 Data Flow and Model Parameters</h2><div class="chapter-label">Work 2</div></div>
+  <div class="accent-bar"></div>
+  <div class="page27implementation-main">
+    <div class="work2-figure-card"><div class="work2-card-title">CNN training and Loihi inference data flow</div><div class="page27implementation-frame"><img src="assets/work2-loihi-data-flow.png" alt="Data flow from current acquisition through trajectory generation and CNN training to SNN conversion and OC fault diagnosis on Loihi." /></div><div class="work2-caption">Three-phase currents are converted to trajectory matrices on the host PC. Trained parameters and the trajectory dataset are then loaded onto Loihi.</div></div>
+    <div class="page27-parameter-card">
+      <div class="work2-card-title">CNN/SNN architecture and training parameters</div>
+      <table class="page27-table"><thead><tr><th>Parameter</th><th>Value</th></tr></thead><tbody>
+        <tr><td>Convolution layer 1</td><td>3×3, stride 1, 32 filters, same padding</td></tr>
+        <tr><td>Convolution layer 2</td><td>3×3, stride 1, 64 filters, same padding</td></tr>
+        <tr><td>Convolution layer 3</td><td>3×3, stride 1, 128 filters, same padding</td></tr>
+        <tr><td>Learning rate</td><td>3×10<sup>−4</sup></td></tr><tr><td>Firing-rate scaling</td><td>330 Hz</td></tr>
+        <tr><td>Mini-batch size</td><td>16</td></tr><tr><td>Epochs</td><td>10</td></tr><tr><td>Output classes</td><td>22 operational modes</td></tr>
+      </tbody></table>
+      <div class="page27-offline"><strong>Current implementation:</strong> Loihi does not support real-time streaming in this setup; trajectory matrices and trained parameters are pre-loaded for offline inference.</div>
+    </div>
+  </div>
+  <div class="page-num">27</div>
+</section>
+
+<section class="slide content-slide work2-slide page28prediction">
+  <div class="content-header"><h2 class="slide-title">How the SNN Produces an Operational-Mode Prediction</h2><div class="chapter-label">Work 2</div></div>
+  <div class="accent-bar"></div>
+  <div class="page28prediction-main">
+    <div class="work2-figure-card"><div class="work2-card-title">Output-neuron probabilities for a healthy trajectory matrix</div><div class="page28prediction-frame"><img src="assets/work2-output-predictions.png" alt="Output-neuron probability evolution over SNN timesteps for the healthy mode." /></div><div class="work2-caption">The healthy-mode neuron becomes dominant as spike activity propagates through the network.</div></div>
+    <div class="page28prediction-text">
+      <div class="page28-stage"><span>Timesteps 0–6</span><strong>Insufficient evidence</strong><p>All output neurons remain near the same baseline probability.</p></div>
+      <div class="page28-stage"><span>Timesteps 7–16</span><strong>Spike-path separation</strong><p>The healthy-mode neuron accumulates stronger activity than the other 21 neurons.</p></div>
+      <div class="page28-stage final"><span>Final timestep</span><strong>Operational-mode decision</strong><p>The healthy-mode probability reaches 1 while the competing outputs are suppressed.</p></div>
+      <div class="page28-equation"><math display="block"><mrow><mover><mi>y</mi><mo>^</mo></mover><mo>=</mo><munder><mo>arg max</mo><mi>k</mi></munder><msub><mi>p</mi><mi>k</mi></msub><mo>(</mo><mi>T</mi><mo>)</mo></mrow></math><span>Select the output neuron with the largest final-time probability.</span></div>
+    </div>
+  </div>
+  <div class="page-num">28</div>
+</section>
+
+<section class="slide content-slide work2-slide page29energymeasurement">
+  <div class="content-header"><h2 class="slide-title">GPU Power Logging and Loihi Energy Estimation</h2><div class="chapter-label">Work 2</div></div>
+  <div class="accent-bar"></div>
+  <div class="page29energy-main">
+    <div class="work2-figure-card"><div class="work2-card-title">GPU power during training and ten rounds of offline testing</div><div class="page29energy-frame"><img src="assets/work2-power-logging.png" alt="GPU power logging during CNN training and ten rounds of offline validation." /></div><div class="work2-caption">The repeated test extends the measurement interval and increases the number of 100 ms power samples.</div></div>
+    <div class="page29energy-methods">
+      <div class="page29-method"><span>GPU-based methods</span><ul><li>Log power with <code>nvidia-smi</code> every 100 ms.</li><li>Subtract 3.6 W average idle power.</li><li>Integrate net power using the trapezoidal rule.</li><li>Repeat testing ten times and average the result.</li></ul></div>
+      <div class="page29-method loihi"><span>Loihi SNN</span><div class="page29-equation"><math display="block"><mrow><msub><mi>E</mi><mtext>total</mtext></msub><mo>=</mo><msub><mi>E</mi><mtext>synaptic</mtext></msub><mo>+</mo><msub><mi>E</mi><mtext>neuron</mtext></msub></mrow></math></div><ul><li>Estimate synaptic energy from recorded spike count and 23.6 pJ per spike.</li><li>Include neuron-state update energy.</li></ul></div>
+      <div class="page29-caveat"><strong>Measurement boundary:</strong> reported Loihi energy is estimated neuromorphic inference energy, not full board-level system energy.</div>
+    </div>
+  </div>
+  <div class="page-num">29</div>
+</section>
+
+<section class="slide content-slide work2-slide page30benchmark">
+  <div class="content-header"><h2 class="slide-title">Accuracy and Energy Benchmarking</h2><div class="chapter-label">Work 2</div></div>
+  <div class="accent-bar"></div>
+  <div class="page30benchmark-main">
+    <div class="page30-table-block"><div class="page30-table-title">Balanced loading</div><table class="page30-table"><thead><tr><th>Methodology</th><th>Accuracy</th><th>Training energy</th><th>Testing energy</th><th>Energy/inference</th></tr></thead><tbody>
+      <tr class="proposed"><td>Loihi: CNN → SNN</td><td>100%</td><td>2844.53 J</td><td>0.048 J</td><td>1.1×10<sup>−5</sup> J</td></tr>
+      <tr><td>NVIDIA 4060: CNN offline</td><td>100%</td><td>2844.53 J</td><td>18.48 J</td><td>4.2×10<sup>−3</sup> J</td></tr><tr><td>NVIDIA 4060: CNN online</td><td>100%</td><td>2844.53 J</td><td>24.64 J</td><td>5.6×10<sup>−3</sup> J</td></tr><tr><td>NVIDIA 4060: CNN → SNN</td><td>100%</td><td>2844.53 J</td><td>1364 J</td><td>0.31 J</td></tr><tr><td>NVIDIA 4060: mushroom body</td><td>78.32%</td><td>2952.11 J</td><td>748 J</td><td>0.17 J</td></tr><tr><td>NVIDIA 4060: WT + CNN</td><td>100%</td><td>1363.3 J</td><td>8.73 J</td><td>2.0×10<sup>−3</sup> J</td></tr><tr><td>NVIDIA 4060: KAN</td><td>99.25%</td><td>894.89 J</td><td>5.15 J</td><td>1.2×10<sup>−3</sup> J</td></tr><tr><td>NVIDIA 4060: TCN</td><td>98.48%</td><td>831.93 J</td><td>5.74 J</td><td>1.3×10<sup>−3</sup> J</td></tr><tr><td>NVIDIA 4060: A-MICNN</td><td>99.74%</td><td>1537.18 J</td><td>6.77 J</td><td>1.5×10<sup>−3</sup> J</td></tr>
+    </tbody></table></div>
+    <div class="page30-table-block"><div class="page30-table-title">Extremely unbalanced loading: 88% PCUR</div><table class="page30-table"><thead><tr><th>Methodology</th><th>Accuracy</th><th>Training energy</th><th>Testing energy</th><th>Energy/inference</th></tr></thead><tbody>
+      <tr class="proposed"><td>Loihi: CNN → SNN</td><td>100%</td><td>3238.78 J</td><td>0.048 J</td><td>1.1×10<sup>−5</sup> J</td></tr>
+      <tr><td>NVIDIA 4060: CNN offline</td><td>100%</td><td>3238.78 J</td><td>13.42 J</td><td>3.0×10<sup>−3</sup> J</td></tr><tr><td>NVIDIA 4060: CNN online</td><td>100%</td><td>3238.78 J</td><td>23.73 J</td><td>5.2×10<sup>−3</sup> J</td></tr><tr><td>NVIDIA 4060: CNN → SNN</td><td>100%</td><td>3238.78 J</td><td>1682.46 J</td><td>0.37 J</td></tr><tr><td>NVIDIA 4060: mushroom body</td><td>65.47%</td><td>2844.71 J</td><td>784.53 J</td><td>0.18 J</td></tr><tr><td>NVIDIA 4060: WT + CNN</td><td>93.11%</td><td>1929.75 J</td><td>12.09 J</td><td>2.7×10<sup>−3</sup> J</td></tr><tr><td>NVIDIA 4060: KAN</td><td>95.20%</td><td>944.26 J</td><td>8.27 J</td><td>1.9×10<sup>−3</sup> J</td></tr><tr><td>NVIDIA 4060: TCN</td><td>93.18%</td><td>946.18 J</td><td>6.03 J</td><td>1.4×10<sup>−3</sup> J</td></tr><tr><td>NVIDIA 4060: A-MICNN</td><td>99.12%</td><td>2065.48 J</td><td>11.67 J</td><td>2.7×10<sup>−3</sup> J</td></tr>
+    </tbody></table></div>
+    <div class="page30-kpis"><div><strong>11 μJ</strong><span>per diagnosis</span></div><div><strong>382×</strong><span>less energy than GPU CNN</span></div><div><strong>100%</strong><span>accuracy in both loading cases</span></div></div>
+  </div>
+  <div class="page-num">30</div>
+</section>
+
+<section class="slide content-slide work2-slide page31robustness">
+  <div class="content-header"><h2 class="slide-title">SNN Robustness After CNN-to-SNN Conversion</h2><div class="chapter-label">Work 2</div></div>
+  <div class="accent-bar"></div>
+  <div class="page31robustness-main">
+    <div class="page31-grid">
+      <div class="work2-figure-card"><div class="work2-card-title">Balanced current-amplitude step</div><div class="page31-frame"><img src="assets/work2-step-balanced.png" alt="SNN diagnosis remains healthy during a balanced current-amplitude step." /></div><div class="page31-result"><strong>No false diagnosis</strong> across 517 sliding-window inferences.</div></div>
+      <div class="work2-figure-card"><div class="work2-card-title">Unbalanced current-amplitude step</div><div class="page31-frame"><img src="assets/work2-step-unbalanced.png" alt="SNN diagnosis remains healthy during an unbalanced current-amplitude step." /></div><div class="page31-result"><strong>No false diagnosis</strong> under simultaneous imbalance and amplitude transition.</div></div>
+      <div class="work2-figure-card"><div class="work2-card-title">White Gaussian noise</div><div class="page31-frame"><img src="assets/work2-noise-robustness.png" alt="Balanced and unbalanced SNN diagnosis accuracy at 40, 30, 20, and 10 dB SNR." /></div><div class="page31-result"><strong>20 dB:</strong> 100% balanced and 94% unbalanced accuracy.</div></div>
+    </div>
+    <div class="work2-takeaway"><strong>Takeaway:</strong> CNN-to-SNN conversion preserves robustness against load transitions, extreme imbalance, and measurement noise while enabling low-energy inference.</div>
+  </div>
+  <div class="page-num">31</div>
+</section>
+
 <div id="help">← / → to navigate · P to print</div>
-<div id="counter">1 / 23</div>
+<div id="counter">1 / 31</div>
 </div>
 <script src="deck.js"></script>
 </body>
