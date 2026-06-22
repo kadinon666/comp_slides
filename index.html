@@ -691,35 +691,35 @@
 
 <section class="slide content-slide page16v2">
   <div class="content-header">
-    <h2 class="slide-title">Energy Bottleneck in CNN Implementation</h2>
+    <h2 class="slide-title">Robustness Achieved, Energy Becomes the Bottleneck</h2>
     <div class="chapter-label">Transition to Work 2</div>
   </div>
   <div class="accent-bar"></div>
   <div class="page16v2-main">
     <div class="page16v2-metrics">
+      <div class="page16v2-metric"><div class="value">33.06M</div><div class="label">MAC operations in the preliminary CNN</div><div class="source">This proposal</div></div>
       <div class="page16v2-metric"><div class="value">7.94–337 mJ</div><div class="label">per CNN accelerator diagnosis</div><div class="source">Prior CNN accelerator studies</div></div>
       <div class="page16v2-metric"><div class="value">500 mJ</div><div class="label">per diagnosis on commercial edge devices</div><div class="source">Commercial edge characterization</div></div>
       <div class="page16v2-metric"><div class="value">0.12 mJ</div><div class="label">per model-based diagnosis</div><div class="source">Model-based baseline</div></div>
-      <div class="page16v2-metric"><div class="value">33.06M</div><div class="label">MAC operations in the preliminary CNN</div><div class="source">This proposal</div></div>
     </div>
     <div class="page16v2-bottom">
       <div class="page16v2-card">
-        <div class="page16v2-kicker">Energy barrier</div>
+        <div class="page16v2-kicker">Work 1: robustness achieved</div>
         <ul class="page16v2-bullets">
-          <li>Prior CNN implementations require much higher energy than model-based diagnosis.</li>
-          <li>Commercial edge inference can further increase the per-diagnosis energy.</li>
-          <li>At high sampling rates, this cost can scale to <strong>hundreds of watts</strong>.</li>
-          <li>This can exceed the auxiliary power budget of many converter systems.</li>
+          <li><strong>100% accuracy</strong> across all 22 operational modes at 88% PCUR.</li>
+          <li>Load transients do not trigger false OC-fault alarms.</li>
+          <li>Single- and double-switch faults are diagnosed online.</li>
+          <li>Robustness is maintained under measurement noise.</li>
         </ul>
       </div>
       <div class="page16v2-card">
-        <div class="page16v2-kicker">Implication</div>
+        <div class="page16v2-kicker">New challenge: implementation energy</div>
         <ul class="page16v2-bullets">
-          <li>CNN diagnosis is algorithmically attractive because it improves robustness.</li>
-          <li>However, dense convolutional inference creates a new implementation challenge.</li>
-          <li>Energy efficiency becomes the next requirement for practical deployment.</li>
+          <li>Each diagnosis requires <strong>33.06 million dense MAC operations</strong>.</li>
+          <li>Prior CNN implementations consume substantially more energy than model-based diagnosis.</li>
+          <li>High-rate inference conflicts with embedded converter power constraints.</li>
         </ul>
-        <div class="page16v2-takeaway">Next, I analyze where the CNN energy is spent in the sparse trajectory-matrix case.</div>
+        <div class="page16v2-takeaway"><strong>Transition:</strong> Work 1 solves robustness; Work 2 must preserve diagnosis capability while reducing energy.</div>
       </div>
     </div>
   </div>
