@@ -26,6 +26,8 @@ h1 { margin:0; color:var(--psu-navy); font-weight:820; letter-spacing:-.04em; li
 .slide-title { margin:0; color:var(--psu-navy); font-weight:820; letter-spacing:-.035em; line-height:1.04; font-size:clamp(29px,2.95vw,50px); }
 .chapter-label { color:var(--muted); font-size:clamp(11px,.86vw,15px); font-weight:800; text-transform:uppercase; letter-spacing:.12em; padding-top:.65rem; white-space:nowrap; }
 .accent-bar { position:relative; z-index:2; width:7.2rem; height:.34rem; background:var(--psu-sky); border-radius:999px; margin-bottom:1.55rem; }
+.content-slide .chapter-label,
+.content-slide .accent-bar { display:none !important; }
 .central-question { position:relative; z-index:2; border-left:.42rem solid var(--psu-navy); background:var(--soft); padding:1.0rem 1.18rem; margin:0 0 1.25rem 0; max-width:91%; }
 .central-question .label { color:var(--muted); font-size:clamp(12px,.9vw,15px); font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin-bottom:.38rem; }
 .central-question .question { color:var(--ink); font-size:clamp(18px,1.5vw,26px); line-height:1.24; font-weight:650; }
@@ -667,11 +669,12 @@ h1 { margin:0; color:var(--psu-navy); font-weight:820; letter-spacing:-.04em; li
   border:1px solid var(--line); border-radius:18px; background:#fff;
   box-shadow:0 12px 28px rgba(27,58,114,.08); padding:.76rem .9rem .66rem .9rem;
 }
+.page13v1-figure { display:flex; flex-direction:column; min-height:0; }
 .page13v1-title {
   color:var(--psu-navy); font-weight:820; font-size:clamp(14px,.95vw,18px); margin-bottom:.4rem;
 }
 .page13v1-frame {
-  width:100%; aspect-ratio:785 / 835; max-height:calc(100% - 2.75rem);
+  width:100%; flex:1; min-height:0;
   background:#F8FAFC; border:1px solid #E6ECF2; border-radius:10px;
   overflow:hidden; display:flex; align-items:center; justify-content:center;
 }
